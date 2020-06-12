@@ -17,7 +17,7 @@ class Solution {
             return true;
         }
 
-        if( p!= null || q != null){
+        if( p != null && q != null){
             if(p.val == q.val && isSameTree(p.left, q.left)
                               && isSameTree(p.right, q.right)){
                                   return true;
