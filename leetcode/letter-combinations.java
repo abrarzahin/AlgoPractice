@@ -3,18 +3,21 @@ class Solution {
         
         List<String> result = new ArrayList<>();
         
-        if(digits == null || digits.equals("")){
+        if( digits == null || digits.equals("")){
             return result;
         }
         
+        
         StringBuilder sb = new StringBuilder();
         
-        Map<Character, char[]> lettersMap = getLettersMap();
-        letterCombinationHelper(digits, sb, lettersMap,result);
+        Map<Character, char[]> lettersMap= getLettersMap();
+        
+        letterCombinationHelper(digits, sb, lettersMap, result);
         
         return result;
         
     }
+    
     
     private Map<Character, char[]> getLettersMap(){
         Map<Character, char[]> lettersMap = new HashMap<>();
@@ -33,18 +36,20 @@ class Solution {
     }
     
     
-    private void letterCombinationHelper(String digits, StringBuilder sb, Map<Character, char[]> lettersMap, List<String> result){
+    private void letterCombinationHelper(String digits, StringBuilder 
+sb, Map<Character, char[]> lettersMap, List<String> result){
+        
+        
         if(sb.length() == digits.length()){
             result.add(sb.toString());
             return;
         }
         
-        for(char ch: lettersMap.get(digits.charAt(sb.length()))){
+        
+        for( char ch : lettersMap.get(digits.charAt(sb.length()))){
             sb.append(ch);
             letterCombinationHelper(digits, sb, lettersMap, result);
             sb.deleteCharAt(sb.length()-1);
         }
-        
     }
-    
 }
