@@ -5,13 +5,14 @@
  *     ListNode next;
  *     ListNode() {}
  *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = 
+next; }
  * }
  */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
         
-        if(n <= 0){
+        if( n <=0){
             return head;
         }
         
@@ -21,25 +22,24 @@ class Solution {
         
         ListNode preDelete = dummy;
         
-        for(int i=0; i< n; i++){
-            if(head == null){
+        for( int i=0; i <n; i++){
+            if( head == null)
+               { 
                 return null;
-            }
+               }
             
-            head=head.next;
+            head = head.next;
         }
         
-        while(head != null){
-            preDelete= preDelete.next;
-            head=head.next;
+        
+        while( head != null){
+            preDelete = preDelete.next;
+            head = head.next;
         }
         
         preDelete.next = preDelete.next.next;
         
-        
         return dummy.next;
-        
-        
         
     }
 }
