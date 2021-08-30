@@ -6,17 +6,19 @@ class Solution {
         HashMap<String, List<String>> map = new HashMap<>();
         
         for( String curr : strs){
-            char[] characters = curr.toCharArray();
             
-            Arrays.sort(characters);
+            char[] ch = curr.toCharArray();
             
-            String sorted = new String(characters);
+            Arrays.sort(ch);
+            
+            String sorted = new String(ch);
             
             if( !map.containsKey(sorted)){
                 map.put(sorted, new ArrayList<>());
             }
             
             map.get(sorted).add(curr);
+            
         }
         
         grouped.addAll(map.values());
