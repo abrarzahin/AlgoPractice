@@ -1,19 +1,17 @@
-class Solution{
-public int maxSubArray(int[] nums){
-
-        int [] table = new int[nums.length];
+class Solution {
+    public int maxSubArray(int[] nums) {
+        
         int max = nums[0];
-        table[0] = nums[0];
-
-        for( int i = 1; i < nums.length; i++){
-
-        table[i] = Math.max(nums[i], nums[i] + table[i-1]);
-        max = Math.max(max, table[i]);
+        int current = max;
+        
+        
+        for( int i=1; i < nums.length; i++){
+            current = Math.max( nums[i], nums[i]+ current);
+            
+            max = Math.max( max, current);
         }
-
+        
         return max;
-
-
- }
+        
+    }
 }
-
