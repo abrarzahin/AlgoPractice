@@ -14,25 +14,30 @@
 
   class Solution {
     
-    int maxValue;
-    
-    public int maxPathSum(TreeNode root) {
-        maxValue = Integer.MIN_VALUE;
-        
-        maxPathDown(root);
-         
-        return maxValue;
-        
-    }
-    
-    private int maxPathDown( TreeNode node){
-        if( node == null) return 0;
-        
-        int left = Math.max( 0, maxPathDown(node.left));
-        int right = Math.max(0, maxPathDown(node.right));
-        
-        maxValue = Math.max(maxValue, left + right+ node.val);
-        
-        return Math.max(left, right) + node.val;
-    }
+    int max_sum = Integer.MIN_VALUE;
+	
+	public int maxPathSum(TreeNode node){
+		
+		maxGain(node);
+		
+		return max_sum;
+	}
+	
+	
+	public int maxGain(TreeNode node){
+			
+		if(node == null) return 0;
+		
+		// max sum on the left and right subtrees of the node
+		int leftGain = Math.max(maxGain(node.left), 0);
+		int rightGain= Math.max(maxGain(node.right), 0);
+		
+		// the price of starting a new path where node is a highest node
+		int priceNewPath = node.val + leftGain + rightGain;
+		
+		// update max_sum if new path has greater value
+		max_sum = Math.max(max_sum, priceNewPath);
+		
+		return node.val + Math.max(leftGain, rightGain);
+	}
 }
