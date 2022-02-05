@@ -1,8 +1,10 @@
 class Solution{
-
+/*
+Time complexity :O(M⋅N).We're solving M⋅N subproblems. Solving each subproblem is an O(1) operation.
+Space complexity :O(M⋅N).
+We'e allocating a 2D array of size M \cdot NM⋅N to save the answers to subproblems.
+*/
     public int longestCommonSubsequence(String text1, String text2){
-
-
         // a grid of 0's with text2's column length and text1's row length
         int[][] dpGrid = new int[text1.length()+1][text2.length()+1];
         // iterate through starting from last column

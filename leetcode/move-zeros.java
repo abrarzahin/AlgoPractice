@@ -1,6 +1,6 @@
 class Solution {
     public void moveZeroes(int[] nums) {
-        
+        // O(N), O(1)
         if( nums == null || nums.length ==0) return;
         
         int index =0;

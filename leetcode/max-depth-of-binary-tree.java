@@ -10,7 +10,8 @@ public class TreeNode{
        this.left= left;
        this.right= right;
    }
-}
+}// time: O(N) num of nodes, Space: O(N) worse case unbalanced
+// but if balanced O(logN)
 class Solution {
     public int maxDepth(TreeNode root) {
         

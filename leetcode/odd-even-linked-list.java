@@ -1,6 +1,5 @@
 
-  Definition for singly-linked list.
-  public class ListNode {
+public class ListNode {
       int val;
       ListNode next;
       ListNode() {}
@@ -8,7 +7,7 @@
       ListNode(int val, ListNode next) { this.val = val; this.next = 
      next; }
   }
- 
+ // time: O(N), O(1)
 class Solution {
     public ListNode oddEvenList(ListNode head) {
         if( head == null) return null;

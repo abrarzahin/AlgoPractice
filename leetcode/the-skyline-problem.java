@@ -3,7 +3,6 @@ class Solution {
         
         TreeMap<Integer, List<int[]>> map = new TreeMap<>();
         
-
         // put into a treemap for sorted key
         for( int[] b : buildings){
             map.putIfAbsent(b[0], new ArrayList<>());
@@ -11,7 +10,6 @@ class Solution {
             map.get(b[0]).add(b);
             map.get(b[1]).add(b);
         }
-        
         PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a,b) -> b[2]-a[2]);
         List<List<Integer>> res = new ArrayList<>();
         

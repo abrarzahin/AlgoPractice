@@ -13,42 +13,43 @@ public class TreeNode{
         this.left=left;
     }
 }
+/*
+Time complexity : \mathcal{O}(N)O(N) since each node is processed exactly once.
 
+Space complexity : \mathcal{O}(N)O(N) to keep the output structure which contains N node values.
+
+*/
 class Solution {
-    public List<List<Integer>> levelOrder(TreeNode root) {
-        
-        List<List<Integer>> result = new ArrayList<>();
-        
-        if( root == null){
-            return result;
-        }
-        
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        
-        while( !queue.isEmpty()){
-            int levelSize = queue.size();
+    class Solution {
+        public List<List<Integer>> levelOrder(TreeNode root) {
             
-            List<Integer> level = new ArrayList<>();
-            
-            for( int i=0; i < levelSize; i++){
-                TreeNode node = queue.poll();
-                level.add(node.val);
-                
-                
-                if(node.left != null){
-                    queue.offer(node.left);
-                }
-                
-                if( node.right != null){
-                    queue.offer(node.right);
-                }
+          List<List<Integer>> levels = new ArrayList<List<Integer>>();
+          if (root == null) return levels;
+      
+          Queue<TreeNode> queue = new LinkedList<TreeNode>();
+          queue.add(root);
+          int level = 0;
+          while ( !queue.isEmpty() ) {
+            // start the current level
+            levels.add(new ArrayList<Integer>());
+      
+            // number of elements in the current level
+            int level_length = queue.size();
+            for(int i = 0; i < level_length; ++i) {
+              TreeNode node = queue.remove();
+      
+              // fulfill the current level
+              levels.get(level).add(node.val);
+      
+              // add child nodes of the current level
+              // in the queue for the next level
+              if (node.left != null) queue.add(node.left);
+              if (node.right != null) queue.add(node.right);
             }
-            
-            result.add(level);
+            // go to next level
+            level++;
+          }
+          return levels;
         }
-        
-        return result;
-        
-    }
+      }
 }

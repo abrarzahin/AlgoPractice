@@ -1,24 +1,18 @@
 class Solution {
     public List<String> letterCombinations(String digits) {
-        
+    /*
+    Time complexity: O(4^N * N) where N is the length of digits. Note that 4 in this expression is referring to the maximum value length in the hash map, and not to the length of the input.
+    Space: Space complexity: O(N), where N is the length of digits.
+    */  
         List<String> result = new ArrayList<>();
-        
         if( digits == null || digits.equals("")){
             return result;
         }
-        
-        
         StringBuilder sb = new StringBuilder();
-        
         Map<Character, char[]> lettersMap= getLettersMap();
-        
         letterCombinationHelper(digits, sb, lettersMap, result);
-        
-        return result;
-        
+        return result;  
     }
-    
-    
     private Map<Character, char[]> getLettersMap(){
         Map<Character, char[]> lettersMap = new HashMap<>();
         lettersMap.put('0', new char[]{});
@@ -31,20 +25,16 @@ class Solution {
         lettersMap.put('7', new char[]{'p', 'q', 'r', 's'});
         lettersMap.put('8', new char[]{'t', 'u', 'v'});
         lettersMap.put('9', new char[]{'w', 'x', 'y', 'z'});
-        
         return lettersMap;
     }
     
-    
     private void letterCombinationHelper(String digits, StringBuilder 
 sb, Map<Character, char[]> lettersMap, List<String> result){
-        
         
         if(sb.length() == digits.length()){
             result.add(sb.toString());
             return;
         }
-        
         
         for( char ch : lettersMap.get(digits.charAt(sb.length()))){
             sb.append(ch);

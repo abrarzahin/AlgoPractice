@@ -1,35 +1,22 @@
-import java.util.HashSet;
-
 class Solution {
-    public int lengthOfLongestSubstring(String s) {
+    // O(N^2), O(N)
+    public int longestSubstring(String s, int k) {
+        return longestSubstringUtil(s, 0, s.length(), k);
+    }
 
-
-        int maxLength = 0;
-
-        HashSet<Character> set = new HashSet<>();
-
-        int i = 0;
-        int j = 0;
-
-        while ( j< s.length){
-
-            if( !set.contains(s.charAt(j))){
-                set.add(s.charAt(j));
-                j++;
-                maxLength = Math.max(maxLength, j-i);
-            }
-
-            else{
-                set.remove((s.charAt(i)));
-                i++;
-            }
-
-
+    int longestSubstringUtil(String s, int start, int end, int k) {
+        if (end < k) return 0;
+        int[] countMap = new int[26];
+        // update the countMap with the count of each character
+        for (int i = start; i < end; i++)
+            countMap[s.charAt(i) - 'a']++;
+        for (int mid = start; mid < end; mid++) {
+            if (countMap[s.charAt(mid) - 'a'] >= k) continue;
+            int midNext = mid + 1;
+            while (midNext < end && countMap[s.charAt(midNext) - 'a'] < k) midNext++;
+            return Math.max(longestSubstringUtil(s, start, mid, k),
+                    longestSubstringUtil(s, midNext, end, k));
         }
-        
-        
-        return maxLength;
-        
-        
+        return (end - start);
     }
 }

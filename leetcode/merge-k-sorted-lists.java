@@ -8,7 +8,7 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = 
 next; }
  * }
- */
+ */// time: O(NlogK), space: O(N)
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
         
@@ -20,18 +20,13 @@ class Solution {
                 head = head.next;
             }
         }
-        
-        
         ListNode dummy = new ListNode(-1);
         ListNode head = dummy;
-        
-        
+         
         while( !minHeap.isEmpty()){
             head.next = new ListNode(minHeap.remove());
             head = head.next;
-        }
-        
-        
+        } 
         return dummy.next;
     }
 }

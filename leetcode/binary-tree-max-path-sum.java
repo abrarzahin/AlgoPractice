@@ -24,6 +24,8 @@
 	}
 	
 	
+	// O(N), O(H)
+	
 	public int maxGain(TreeNode node){
 			
 		if(node == null) return 0;

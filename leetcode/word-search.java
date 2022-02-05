@@ -1,4 +1,7 @@
 class Solution {
+    /**Time Complexity: O(N⋅3^l) where NN is the number of cells in the board and LL is the length of the word to be matched.
+     * Space Complexity: O(L) where LL is the length of the word to be matched.
+     */
     public boolean exist(char[][] board, String word) {
         
         int m = board.length, n = board[0].length;

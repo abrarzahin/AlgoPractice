@@ -1,37 +1,26 @@
 class Solution {
+    // backtracking, time: O(N*2^N), space: O(N)
     public List<List<String>> partition(String s) {
-        List<List<String>> res = new ArrayList<>();
-        if(s.length()==0) return res;
-        helper(res, new ArrayList<>(), s, 0);
-        return res;
+        List<List<String>> result = new ArrayList<List<String>>();
+        dfs(0, result, new ArrayList<String>(), s);
+        return result;
     }
-    
-    
-    private void helper(List<List<String>> res, List<String> cur, String 
-s, int lo){
-        
-        if( lo == s.length()){
-            res.add(new ArrayList(cur));
-            return;
-        }
-        
-        int n = s.length();
-        for( int hi=lo; hi<n; hi++){
-            if(isPal(s,lo,hi)){
-                cur.add(s.substring(lo,hi+1));
-                helper(res, cur, s, hi+1);
-                cur.remove(cur.size()-1);
+    void dfs(int start, List<List<String>> result, List<String> currentList, String s) {
+        if (start >= s.length()) result.add(new ArrayList<String>(currentList));
+        for (int end = start; end < s.length(); end++) {
+            if (isPalindrome(s, start, end)) {
+                // add current substring in the currentList
+                currentList.add(s.substring(start, end + 1));
+                dfs(end + 1, result, currentList, s);
+                // backtrack and remove the current substring from currentList
+                currentList.remove(currentList.size() - 1);
             }
-        }  
-        
+        }
     }
-    
-    
-    private boolean isPal(String s, int lo, int hi){
-        while(lo <= hi){
-            if(s.charAt(lo) != s.charAt(hi)) return false;
-            lo++;
-            hi--;
+
+    boolean isPalindrome(String s, int low, int high) {
+        while (low < high) {
+            if (s.charAt(low++) != s.charAt(high--)) return false;
         }
         return true;
     }

@@ -1,5 +1,5 @@
 public class Solution {
-   
+   //O(1), O(1)
     public int reverseBits(int n) {
         
        if (n == 0) return 0;
@@ -11,8 +11,6 @@ public class Solution {
         n >>= 1;
     }
     return result;
-        
-        
         
     }
 }

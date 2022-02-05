@@ -1,7 +1,8 @@
 class MinStack {
 
     /** initialize your data structure here. */
-    
+    // time-O(1) 
+    //space- O(n) using stack
     
     Stack<Integer> stack1;
     Stack<Integer> stack2;

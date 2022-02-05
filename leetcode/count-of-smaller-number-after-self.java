@@ -1,81 +1,67 @@
 class Solution {
-    
-    class Item{
-        int val;
-        int index;
-        public Item( int v, int i){
-            val = v;
-            index =i;
-        }
-    }
-    
-    
-    public List<Integer> countSmaller(int[] nums){
-        
+    /*
+    Time Complexity: O(N\log(N)). We need to perform a merge sort which takes O(N\log(N)) time. All other operations take at most O(N) time.
+
+Space Complexity: O(N), since we need a constant number of arrays of size O(N).
+    */
+    public List<Integer> countSmaller(int[] nums) {
         int n = nums.length;
-        
-        Item[] items = new Item[n];
-        
-        for( int i =0; i < n ; i++){
-            items[i] = new Item(nums[i],i);
+        int[] result = new int[n];
+        int[] indices = new int[n]; // record the index. we are going to sort this array
+        for (int i = 0; i < n; i++) {
+            indices[i] = i;
         }
-        
-        
-        int[] count = new int[n];
-        mergeSort(items, 0, n-1, count);
-        List<Integer> res = new ArrayList<>();
-        
-        for( int i : count){
-            res.add(i);
+        // sort indices with their corresponding values in nums, i.e., nums[indices[i]]
+        mergeSort(indices, 0, n, result, nums);
+        // change int[] to List to return
+        List<Integer> resultToReturn = new ArrayList<Integer>(n);
+        for (int i : result) {
+            resultToReturn.add(i);
         }
-        
-        return res;
-        
+        return resultToReturn;
     }
-    
-    
-    private void mergeSort(Item[] items, int lo, int hi, int[] count){
-        if( lo >= hi) return;
-        
-        int mid= lo + (hi-lo) /2;
-        mergeSort(items, lo , mid, count);
-        mergeSort(items, mid+1, hi, count);
-        merge(items, lo, mid, mid+1, hi, count);
-        
+
+    private void mergeSort(int[] indices, int left, int right, int[] result, int[] nums) {
+        if (right - left <= 1) {
+            return;
+        }
+        int mid = (left + right) / 2;
+        mergeSort(indices, left, mid, result, nums);
+        mergeSort(indices, mid, right, result, nums);
+        merge(indices, left, right, mid, result, nums);
     }
-    
-    private void merge(Item[] items, int lo, int loEnd, int hi, int hiEnd, int[] count){
-        int m = hiEnd -lo +1;
-        Item[] sorted = new Item[m];
-        int rightCounter = 0;
-        int loPtr = lo, hiPtr=hi;
-        int index =0;
-        
-        while( loPtr <= loEnd && hiPtr <= hiEnd){
-            if( items[loPtr].val > items[hiPtr].val){
-                rightCounter++;
-                sorted[index++]= items[hiPtr++];
-            }
-            
-            else {
-                count[items[loPtr].index] += rightCounter;
-                sorted[index++] = items[loPtr++];
+
+    private void merge(int[] indices, int left, int right, int mid, int[] result, int[] nums) {
+        // merge [left, mid) and [mid, right)
+        int i = left; // current index for the left array
+        int j = mid; // current index for the right array
+        // use temp to temporarily store sorted array
+        List<Integer> temp = new ArrayList<Integer>(right - left);
+        while (i < mid && j < right) {
+            if (nums[indices[i]] <= nums[indices[j]]) {
+                // j - mid numbers jump to the left side of indices[i]
+                result[indices[i]] += j - mid;
+                temp.add(indices[i]);
+                i++;
+            } else {
+                temp.add(indices[j]);
+                j++;
             }
         }
-        
-        
-        while( loPtr <= loEnd){
-            count[items[loPtr].index] += rightCounter;
-            sorted[index++] = items[loPtr++];
+        // when one of the subarrays is empty
+        while (i < mid) {
+            // j - mid numbers jump to the left side of indices[i]
+            result[indices[i]] += j - mid;
+            temp.add(indices[i]);
+            i++;
         }
-        
-        
-        while( hiPtr<=hiEnd){
-            sorted[index++]= items[hiPtr++];
+        while (j < right) {
+            temp.add(indices[j]);
+            j++;
         }
-        
-        System.arraycopy(sorted, 0, items, lo,m);
-        
+        // restore from temp
+        for (int k = left; k < right; k++) {
+            indices[k] = temp.get(k - left);
+        }
     }
-   
 }

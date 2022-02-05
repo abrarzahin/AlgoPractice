@@ -1,4 +1,6 @@
 class Solution {
+    /**Time Complexity: O(M×N). The rectangular grid given to us is of size M \times NM×N and we process each cell just once.
+    Space Complexity: O(1). We are utilizing the obstacleGrid as the DP array. Hence, no extra space. */
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
         if(obstacleGrid==null || obstacleGrid.length==0 || obstacleGrid[0].length ==0){
             return 0;

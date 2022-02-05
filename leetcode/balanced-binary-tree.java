@@ -11,6 +11,15 @@ public class TreeNode{
     }
 }
 
+/*
+Time complexity : \mathcal{O}(n)
+
+For every subtree, we compute its height in constant time as well as compare the height of its children.
+
+Space complexity : \mathcal{O}(n). The recursion stack may go up to \mathcal{O}(n)O(n) if the tree is unbalanced.
+
+*/
+
 class Solution {
     public boolean isBalanced(TreeNode root) {
         

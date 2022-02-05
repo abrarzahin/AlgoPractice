@@ -1,6 +1,9 @@
 class LRUCache {
-    
-    
+    /*
+Time complexity :O(1) both for put and get.
+Space complexity :O(capacity) since the space is used only for a hashmap and double linked list with at most capacity + 1 elements.
+    */
+    // create doubly linked list class
     class Node{
         int key;
         int val;
@@ -10,22 +13,17 @@ class LRUCache {
     
     final Node head = new Node();
     final Node tail = new Node();
-    
     Map<Integer, Node> node_map;
-    
     int cache_capacity;
-
     public LRUCache(int capacity) {
-        
         node_map = new HashMap(capacity);
         this.cache_capacity = capacity;
-        
         head.next = tail;
         tail.prev = head;
-        
     }
     
-    
+    // add node to the head 
+    // to make it first accessable 
     public void add(Node node){
         
         Node head_next = head.next;
@@ -37,11 +35,13 @@ class LRUCache {
         
     }
     
+    // remove node from its place
     public void remove(Node node){
         
+        // capture the nodes next and prev node
         Node next_node = node.next;
         Node prev_node = node.prev;
-        
+        // connect the prev and next node ignoring the node itself
         next_node.prev = prev_node;
         prev_node.next = next_node;
         

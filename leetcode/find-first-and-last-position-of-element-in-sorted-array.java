@@ -1,6 +1,6 @@
 class Solution {
     public int[] searchRange(int[] nums, int target) {
-        
+    // binary search, O(logN), O(1) 
         int[] result = new int[2];
         result[0] = findFirst(nums, target);
         result[1] = findLast(nums, target);

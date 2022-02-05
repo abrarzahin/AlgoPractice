@@ -1,4 +1,7 @@
 class Solution {
+    /**Time Complexity:O(M^2×N), where M is the length of each word and N is the total number of words in the input word list.
+     *space: O(M^2×N)
+     */
     public int ladderLength(String beginWord, String endWord, 
 List<String> wordList) {
         // BFS to find the shortest path

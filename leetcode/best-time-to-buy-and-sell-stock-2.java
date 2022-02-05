@@ -1,3 +1,7 @@
+/*
+O(N), O1
+*/
+
 class Solution {
     public int maxProfit(int[] prices) {
         int maxProfit =0;

@@ -1,4 +1,5 @@
 class Solution {
+    // O(N), O(1)
     public int removeDuplicates(int[] nums) {
         
         if(nums == null || nums.length == 0){

@@ -1,12 +1,10 @@
 class Solution {
-    public void rotate(int[][] matrix) {
-        
+    // time: O(M) m= num of cells 
+    // space: O(1)
+    public void rotate(int[][] matrix) { 
         transpose(matrix);
-        reflect(matrix);
-        
+        reflect(matrix);   
     }
-    
-    
     public void transpose(int[][] matrix){
         int n = matrix.length;
         
@@ -16,10 +14,8 @@ class Solution {
                 matrix[j][i] = matrix[i][j];
                 matrix[i][j] = temp;
             }
-        }
-        
+        }  
     }
-    
     
     public void reflect(int[][] matrix){
         int n= matrix.length;

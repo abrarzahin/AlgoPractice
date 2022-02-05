@@ -1,6 +1,6 @@
 class Solution {
     public List<String> fizzBuzz(int n) {
-        
+      // O(N), O(1)  
         List<String> result = new ArrayList<>();
         
         for(int i =1; i <= n; i++){

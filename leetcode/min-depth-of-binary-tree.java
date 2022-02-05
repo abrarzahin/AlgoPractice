@@ -10,7 +10,7 @@ public class TreeNode{
         this.right=right;
     }
 }
-
+// time:O(N), space: O(logN) if balanced, or if unb then O(N)
 class Solution {
     public int minDepth(TreeNode root) {
         
@@ -30,7 +30,6 @@ class Solution {
         if(root.left == null && root.right == null){
             return 1;
         }
-        
         return Math.min(findMinDepth(root.left), findMinDepth(root.right)) +1;
     }
 }

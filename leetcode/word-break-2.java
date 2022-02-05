@@ -1,13 +1,11 @@
 class Solution {
+    /*
+    */
     public List<String> wordBreak(String s, List<String> wordDict) {
-        
-        return wordBreakHelper(s, wordDict, new HashMap<String, List<String>>());
-        
+        return wordBreakHelper(s, wordDict, new HashMap<String, List<String>>());  
     }
-    
-    
+     
     public List<String> wordBreakHelper( String s, List<String> wordDict, Map<String, List<String>> memo){
-        
         if(memo.containsKey(s)){
             return memo.get(s); 
         }

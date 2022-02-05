@@ -1,9 +1,8 @@
 class Solution {
     public int minPathSum(int[][] grid) {
-        
+     // dp solution, time:O(m*n), space:O(1)   
         int m = grid.length;
         int n = grid[0].length;
-        
         for( int i=0; i <m; i++){
             for(int j=0;j<n; j++){
                 if( i ==0 && j != 0){
@@ -19,7 +18,6 @@ grid[i-1][j]);
                 }
             }
         }
-        
         return grid[m-1][n-1];
         
     }

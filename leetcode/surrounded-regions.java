@@ -1,4 +1,8 @@
 class Solution {
+    /*Time Complexity: O(N) where N is the number of cells in the board. In the worst case where it contains only the O cells on the board, we would traverse each cell twice: once during the DFS traversal and the other time during the cell reversion in the last step.
+
+Space Complexity:O(N) where N is the number of cells in the board. There are mainly two places that we consume some additional memory.
+    */
     public void solve(char[][] board) {
         
         if( board.length ==0 || board[0].length ==0)
@@ -8,8 +12,6 @@ class Solution {
             return;
         
         int m = board.length, n = board[0].length;
-        
-    
         
         // O's in the boundary wont be X
         // So start from the first and last column and turn 'O' to '*'

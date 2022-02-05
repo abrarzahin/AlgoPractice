@@ -1,4 +1,6 @@
 class Solution {
+   // Time complexity : O(n). n numbers are pushed and popped.
+    // Space complexity : O(n). Stack is used.
   public int largestRectangleArea(int[] heights) {
     if (heights == null || heights.length == 0) {
       return 0;
@@ -15,25 +17,19 @@ class Solution {
 heights[stack.peek()]) {
         int height = heights[stack.pop()];
         int width = i - stack.peek() - 1;
-
         int area = height * width;
         maxArea = Math.max(area, maxArea);
       }
-
       stack.push(i);
     }
 
     while (stack.peek() != -1) {
       int height = heights[stack.pop()];
       int width = heights.length - stack.peek() - 1;
-
       int area = height * width;
       maxArea = Math.max(area, maxArea);
     }
-
     return maxArea;
 
-    // Time complexity : O(n). n numbers are pushed and popped.
-    // Space complexity : O(n). Stack is used.
   }
 }

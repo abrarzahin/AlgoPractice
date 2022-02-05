@@ -1,50 +1,42 @@
-public class Solution {
-  
-  public ListNode sortList(ListNode head) {
-    if (head == null || head.next == null)
-      return head;
-        
-    // step 1. cut the list to two halves
-    ListNode temp = null, slow = head, fast = head;
-    
-    while (fast != null && fast.next != null) {
-      temp = slow;
-      slow = slow.next;
-      fast = fast.next.next;
+
+  class Solution {// merge sort, O(NlogN),where nn is the number of nodes in linked list. The algorithm can be split into 2 phases, Split and Merge.
+    // O(logN) where nn is the number of nodes in linked list. 
+    public ListNode sortList(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
+        ListNode mid = getMid(head);
+        ListNode left = sortList(head);
+        ListNode right = sortList(mid);
+        return merge(left, right);
     }
-    
-    temp.next = null;
-    
-    // step 2. sort each half
-    ListNode left_side = sortList(head);
-    ListNode right_side = sortList(slow);
-    
-    // step 3. merge l1 and l2
-    return merge(left_side, right_side);
-  }
-  
-  ListNode merge(ListNode l1, ListNode l2) {
-    ListNode sorted_temp = new ListNode(0);
-    ListNode current_node = sorted_temp;
-    
-    while (l1 != null && l2 != null) {
-      if (l1.val < l2.val) {
-        current_node.next = l1;
-        l1 = l1.next;
-      } else {
-        current_node.next = l2;
-        l2 = l2.next;
+    ListNode getMid(ListNode head) {
+      ListNode midPrev = null;
+      while (head != null && head.next != null) {
+          midPrev = (midPrev == null) ? head : midPrev.next;
+          head = head.next.next;
       }
-      current_node = current_node.next;
-    }
-    
-    if (l1 != null)
-      current_node.next = l1;
-    
-    if (l2 != null)
-      current_node.next = l2;
-    
-    return sorted_temp.next;
+      ListNode mid = midPrev.next;
+      midPrev.next = null;
+      return mid;
   }
 
-}
+    ListNode merge(ListNode list1, ListNode list2) {
+        ListNode dummyHead = new ListNode();
+        ListNode tail = dummyHead;
+        while (list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
+                tail.next = list1;
+                list1 = list1.next;
+                tail = tail.next;
+            } else {
+                tail.next = list2;
+                list2 = list2.next;
+                tail = tail.next;
+            }
+        }
+        tail.next = (list1 != null) ? list1 : list2;
+        return dummyHead.next;
+    }
+
+    
+  }

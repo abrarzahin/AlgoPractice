@@ -1,25 +1,19 @@
-class Solution {
-    public int maxProduct(int[] nums) {
-        
-        if( nums == null || nums.length ==0){
-            return 0;
-        }
-        int max = nums[0], min = nums[0], result = nums[0];
-        
-        for( int i=1; i < nums.length; i++){
-            int temp = max;
-            
-            max = Math.max(Math.max(max * nums[i], min * 
-nums[i]),nums[i]);
-            min = Math.min(Math.min(temp * nums[i], min * 
-nums[i]),nums[i]);
-            
-            if( max > result){
-                result = max;
+class Solution {// dp solution O(N), O(1)
+        public int maxProduct(int[] nums) {
+            if (nums.length == 0) return 0;
+            int max_so_far = nums[0];
+            int min_so_far = nums[0];
+            int result = max_so_far;
+            for (int i = 1; i < nums.length; i++) {
+                int curr = nums[i];
+                int temp_max = Math.max(curr, Math.max(max_so_far * curr, min_so_far * curr));
+                min_so_far = Math.min(curr, Math.min(max_so_far * curr, min_so_far * curr));
+    
+                max_so_far = temp_max;
+    
+                result = Math.max(max_so_far, result);
             }
+    
+            return result;
         }
-        
-        return result;
-        
     }
-}

@@ -1,4 +1,7 @@
 class Solution {
+    /**Time Complexity: O(Nlog(N))
+Space Complexity: O(1) */
+
     public int threeSumClosest(int[] nums, int target) {
         
         if(nums == null || nums.length < 3){

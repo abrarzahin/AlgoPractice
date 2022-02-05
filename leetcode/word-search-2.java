@@ -1,91 +1,85 @@
-class TN{
-    TN[] ar = new TN[26];
-    boolean word;
-    String words;
-    TN(){
-    for(int i = 0; i < ar.length; i++){
-        ar[i] = null;
-    }
-        word = false;
-        words = null;
-    }
-}
+/*
+Time complexity: O(M(4⋅3 L−1)), where M is the number of cells in the board and L is the maximum length of words.
+ Space Complexity: O(N), where N is the total number of letters in the dictionary.
+*/
 
-
-class Trie{
-    TN root = new TN();
-    public void insert(String str){
-        TN cur = root;
-        for(int i = 0; i < str.length(); i++){
-            int ind = str.charAt(i) - 'a';
-            if(cur.ar[ind] == null){
-                cur.ar[ind] = new TN();
-            }
-            cur = cur.ar[ind];
-        }
-        cur.words = str;
-        cur.word = true;
-    }
-}
-
-
-
-class Solution {
-
-    int[] x = {0,0,-1,1};
-    int[] y = {1,-1,0,0};
-
-    public boolean outside(char[][] board, int i , int j){
-        if(i < 0 || i >= board.length || j < 0 || j >= board[0].length) return true;
-        return false;
-    }
-
+class TrieNode {
+    HashMap<Character, TrieNode> children = new HashMap<Character, TrieNode>();
+    String word = null;
+    public TrieNode() {}
+  }
+  
+  class Solution {
+    char[][] _board = null;
+    ArrayList<String> _result = new ArrayList<String>();
+  
     public List<String> findWords(char[][] board, String[] words) {
-
-        Trie tr = new Trie();
-        TN root = tr.root;
-
-        Set<String> res = new HashSet<>();
-
-        for(String w : words) tr.insert(w);
-
-        for(int i = 0; i < board.length; i++){
-            for(int j = 0; j < board[0].length; j++){
-
-                char c = board[i][j];
-
-                if(root.ar[c - 'a'] != null){
-                    dfs(board, i, j, root, c, res);
-                }
-            }
+  
+      // Step 1). Construct the Trie
+      TrieNode root = new TrieNode();
+      for (String word : words) {
+        TrieNode node = root;
+  
+        for (Character letter : word.toCharArray()) {
+          if (node.children.containsKey(letter)) {
+            node = node.children.get(letter);
+          } else {
+            TrieNode newNode = new TrieNode();
+            node.children.put(letter, newNode);
+            node = newNode;
+          }
         }
-        
-        return new ArrayList<>(res);
+        node.word = word;  // store words in Trie
+      }
+  
+      this._board = board;
+      // Step 2). Backtracking starting for each cell in the board
+      for (int row = 0; row < board.length; ++row) {
+        for (int col = 0; col < board[row].length; ++col) {
+          if (root.children.containsKey(board[row][col])) {
+            backtracking(row, col, root);
+          }
+        }
+      }
+  
+      return this._result;
     }
-
-    public void dfs(char[][] board, int i, int j, TN cur, char c, Set<String> res){
-
-        if(outside(board, i, j) || board[i][j] == '#' || cur.ar[c - 'a'] == null)
-         return;
-        
-        char t = board[i][j]; board[i][j] = '#';
-        
-        cur = cur.ar[t - 'a'];
-
-        if(cur != null && cur.word) {
-            res.add(cur.words);
+    
+    private void backtracking(int row, int col, TrieNode parent) {
+      Character letter = this._board[row][col];
+      TrieNode currNode = parent.children.get(letter);
+  
+      // check if there is any match
+      if (currNode.word != null) {
+        this._result.add(currNode.word);
+        currNode.word = null;
+      }
+  
+      // mark the current letter before the EXPLORATION
+      this._board[row][col] = '#';
+  
+      // explore neighbor cells in around-clock directions: up, right, down, left
+      int[] rowOffset = {-1, 0, 1, 0};
+      int[] colOffset = {0, 1, 0, -1};
+      for (int i = 0; i < 4; ++i) {
+        int newRow = row + rowOffset[i];
+        int newCol = col + colOffset[i];
+        if (newRow < 0 || newRow >= this._board.length || newCol < 0
+            || newCol >= this._board[0].length) {
+          continue;
         }
-
-        for(int k = 0; k < x.length; k++){
-
-            int ro = i + x[k]; int co = j + y[k];
-
-            if(outside(board, ro, co)) continue;
-
-            dfs(board, ro, co, cur, board[ro][co], res);
+        if (currNode.children.containsKey(this._board[newRow][newCol])) {
+          backtracking(newRow, newCol, currNode);
         }
-        
-        board[i][j] = t;
-        return;
+      }
+  
+      // End of EXPLORATION, restore the original letter in the board.
+      this._board[row][col] = letter;
+  
+      // Optimization: incrementally remove the leaf nodes
+      if (currNode.children.isEmpty()) {
+        parent.children.remove(letter);
+      }
     }
-}
+  }
+  

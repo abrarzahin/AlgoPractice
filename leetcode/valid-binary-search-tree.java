@@ -14,6 +14,9 @@
   }
  
 class Solution {
+    /**Time complexity : \mathcal{O}(N) in the worst case when the tree is BST or the "bad" element is a rightmost leaf.
+
+Space complexity : \mathcal{O}(N) to keep stack. */
     public boolean isValidBST(TreeNode root) {
         
         if(root == null) return true;

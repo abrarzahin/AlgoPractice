@@ -1,4 +1,6 @@
 class Solution {
+    //Time complexity: O(N^2).
+    //Space complexity: O(N).
     public List<List<Integer>> threeSum(int[] nums) {
         
         List<List<Integer>> results = new ArrayList<>();
@@ -16,21 +18,14 @@ class Solution {
             
             int target = -nums[i];
             int left = i+1;
-            int right = nums.length-1;
-            
+            int right = nums.length-1;  
             twoSumHelper(nums, results, target, left, right);
-            
-            
-            
+                
         }
-        
-        
         return results;
-        
-        
+         
     }
-    
-    
+
     public void twoSumHelper(int[] nums, List<List<Integer>> results, 
 int target, int left, int right){
         
@@ -59,11 +54,6 @@ int target, int left, int right){
             }
                 
             }
-            
-           
-            
-            
-        
         
         else if ( nums[left] + nums[right] > target){
             right--;

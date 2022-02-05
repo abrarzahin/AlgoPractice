@@ -1,41 +1,28 @@
 class Solution {
-    
+// time: O(M*N) m=rows, n=cols, Space: O(1)
     final static int[][] dirs = {{0,-1},{0,1},{1,0},{-1,0},{1,1},{-1,-1},{1,-1},{-1,1}};
     
     public void gameOfLife(int[][] board) {
-        
         if(board == null || board.length== 0) return;
-        
         int rows= board.length, cols = board[0].length;
-        
         for(int i =0; i < rows; i++){
-            for(int j=0; j< cols; j++){
-                
-                
-                if(board[i][j]==0){
-                    
-                    int lives = count(board, i, j);
-                    
+            for(int j=0; j< cols; j++){    
+                if(board[i][j]==0){    
+                    int lives = count(board, i, j);   
                       if( lives == 3){
                       board[i][j]=-1;
                   }
                 }
-                
                 if( board[i][j] ==1){
                     int lives = count(board, i, j);
-                    
                     if( lives < 2 || lives > 3){
                         board[i][j] =2;
                     }
-                }
-                
+                }    
             }
         }
-        
-        update(board);
-        
+        update(board);  
     }
-    
     private void update(int[][] board){
         for( int i=0; i < board.length; i++){
             for( int j=0; j < board[0].length; j++){
@@ -49,7 +36,7 @@ class Solution {
         }
     }
     
-    
+
     private int count(int[][] board, int row, int col){
         int res =0;
         

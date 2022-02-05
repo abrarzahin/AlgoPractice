@@ -1,19 +1,15 @@
 class Solution {
+    /* backtrack time: N!, space: N!
+    */
     public List<List<Integer>> permute(int[] nums) {
         
-        List<List<Integer>> list = new ArrayList<>();
-        
-        backtrack(list, new ArrayList<>(), nums);
-        
-        return list;
-        
+        List<List<Integer>> list = new ArrayList<>();   
+        backtrack(list, new ArrayList<>(), nums);  
+        return list;   
     }
     
     private void backtrack(List<List<Integer>> list, List<Integer> 
-tempList,
-                          int[] nums
-                          ){
-        
+tempList, int[] nums){ 
         if(tempList.size() == nums.length){
             list.add(new ArrayList<>(tempList));
         } else {

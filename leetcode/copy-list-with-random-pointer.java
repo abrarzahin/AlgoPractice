@@ -1,57 +1,62 @@
+/*
+// Definition for a Node.
 class Node {
-    int val;
-    Node next;
-    Node random;
+    public int val;
+    public Node next;
+    public Node random;
 
-    public Node(int val) {
-        this.val = val;
-        this.next = null;
-        this.random = null;
+    public Node() {}
+
+    public Node(int _val,Node _next,Node _random) {
+        val = _val;
+        next = _next;
+        random = _random;
     }
-}
-
-
-class Solution {
+};
+*/
+// O(N), O(N)
+public class Solution {
+    // Visited dictionary to hold old node reference as "key" and new node reference as the "value"
+    HashMap<Node, Node> visited = new HashMap<Node, Node>();
+  
+    public Node getClonedNode(Node node) {
+      // If the node exists then
+      if (node != null) {
+        // Check if the node is in the visited dictionary
+        if (this.visited.containsKey(node)) {
+          // If its in the visited dictionary then return the new node reference from the dictionary
+          return this.visited.get(node);
+        } else {
+          // Otherwise create a new node, add to the dictionary and return it
+          this.visited.put(node, new Node(node.val, null, null));
+          return this.visited.get(node);
+        }
+      }
+      return null;
+    }
+  
     public Node copyRandomList(Node head) {
-        if( head == null){
-            return null;
-        }
-        
-        Map<Node, Node> map = new HashMap<>();
-        
-        Node dummy = new Node(0);
-        Node current = dummy;
-        Node newNode = null;
-        
-        while( head != null){
-            
-            if( map.containsKey(head)){
-                newNode = map.get(head);
-            }
-            else {
-                newNode = new Node(head.val);
-                map.put(head, newNode);
-            }
-            
-            
-            if(head.random != null){
-                if( map.containsKey(head.random)){
-                    newNode.random = map.get(head.random);
-                }
-                else {
-                    newNode.random = new Node(head.random.val);
-                    map.put(head.random, newNode.random);
-                }
-            }
-            
-            current.next = newNode;
-            current = newNode;
-            head = head.next;
-                    
-        }
-        
-        return dummy.next;
-        
-        
+  
+      if (head == null) {
+        return null;
+      }
+  
+      Node oldNode = head;
+  
+      // Creating the new head node.
+      Node newNode = new Node(oldNode.val);
+      this.visited.put(oldNode, newNode);
+  
+      // Iterate on the linked list until all nodes are cloned.
+      while (oldNode != null) {
+        // Get the clones of the nodes referenced by random and next pointers.
+        newNode.random = this.getClonedNode(oldNode.random);
+        newNode.next = this.getClonedNode(oldNode.next);
+  
+        // Move one step ahead in the linked list.
+        oldNode = oldNode.next;
+        newNode = newNode.next;
+      }
+      return this.visited.get(head);
     }
-}
+  }

@@ -1,38 +1,22 @@
-class Solution{
-    public String convert(String s, int numRows){
+class Solution {
+    /*Time Complexity: O(n), where n==len(s). Each index is visited once.
+Space Complexity: O(n). For the cpp implementation, O(1)O if return string is not considered extra space.
+    */
+    public String convert(String s, int numRows) {
 
-        int length = s.length();
+        if (numRows == 1) return s;
 
-        if(numRows > length || numRows <= 1){
-            return s;
-        }
+        StringBuilder ret = new StringBuilder();
+        int n = s.length();
+        int cycleLen = 2 * numRows - 2;
 
-        char[] zigZagChars = new char[length];
-
-        int count = 0;
-
-        int interval = 2 * numRows -2;
-
-
-        for(int i =0; i< numRows; i++){
-            int step = interval - 2* i;
-
-            for(int j = i; j < length; j += interval){
-
-                zigZagChars[count] = s.charAt(j);
-                count++;
-
-                if(step > 0 && step < interval && j+ step < length){
-                    zigZagChars[count] = s.charAt(j + step);
-                    count ++;
-                }
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j + i < n; j += cycleLen) {
+                ret.append(s.charAt(j + i));
+                if (i != 0 && i != numRows - 1 && j + cycleLen - i < n)
+                    ret.append(s.charAt(j + cycleLen - i));
             }
         }
-
-        return new String(zigZagChars);
-
-
-
-
+        return ret.toString();
     }
 }

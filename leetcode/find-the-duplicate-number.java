@@ -1,25 +1,26 @@
 class Solution {
+    /*
+    O(N), O(1)
+    */
     public int findDuplicate(int[] nums) {
         
-        int slow = nums[0];
-        int fast = nums[0];
+        // Find the intersection point of the two runners.
+        int tortoise = nums[0];
+        int hare = nums[0];
         
-        slow=nums[slow];
-        fast=nums[nums[fast]];
+        do {
+            tortoise = nums[tortoise];
+            hare = nums[nums[hare]];
+        } while (tortoise != hare);
+
+        // Find the "entrance" to the cycle.
+        tortoise = nums[0];
         
-        while(slow != fast){
-            slow = nums[slow];
-            fast = nums[nums[fast]];
+        while (tortoise != hare) {
+            tortoise = nums[tortoise];
+            hare = nums[hare];
         }
-        
-        slow = nums[0];
-        
-        while(slow != fast){
-            slow= nums[slow];
-            fast= nums[fast];
-        }
-        
-        return slow;
-        
+
+        return hare;
     }
 }

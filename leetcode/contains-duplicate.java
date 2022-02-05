@@ -1,6 +1,6 @@
 class Solution {
     public boolean containsDuplicate(int[] nums) {
-        
+        // ON, ON
         Set<Integer> set = new HashSet<>(nums.length);
         
         for(int x : nums){

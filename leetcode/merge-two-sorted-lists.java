@@ -9,9 +9,9 @@
 next; }
  * }
  */
+// time: O(n+m), space:O(1)
 class Solution {
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {   
         ListNode dummy = new ListNode(0);
         ListNode l3 = dummy;
         
@@ -25,9 +25,7 @@ class Solution {
                 l2 = l2.next;
             }
             l3 = l3.next;
-        }
-        
-        
+        }   
         if( l1 != null){
             l3.next = l1;
         }

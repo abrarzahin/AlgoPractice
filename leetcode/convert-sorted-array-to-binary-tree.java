@@ -10,7 +10,12 @@ public class TreeNode {
         this.right = right;
     }
 }
-
+// recursive 
+/*
+Time complexity: O(N)O(N) since we visit each node exactly once.
+Space complexity: =O(logN).
+The recursion stack requires O(logN) space because the tree is height-balanced.
+*/ 
 class Solution {
     public TreeNode sortedArrayToBST(int[] num) {
     if (num.length == 0) {

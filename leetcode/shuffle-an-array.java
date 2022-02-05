@@ -1,31 +1,35 @@
-public class Solution {
-    private int[] nums;
-    private Random random;
+class Solution {
+    /*Time complexity : O(n)
+The Fisher-Yates algorithm runs in linear time, as generating a random index and swapping two values can be done in constant time.
+Space complexity : O(n)
+Although we managed to avoid using linear space on the auxiliary array from the brute force approach, we still need it for reset, so we're stuck with linear space complexity.
+    */
+    private int[] array;
+    private int[] original;
 
+    Random rand = new Random();
+
+    private int randRange(int min, int max) {
+        return rand.nextInt(max - min) + min;
+    }
+    private void swapAt(int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
     public Solution(int[] nums) {
-        this.nums = nums;
-        random = new Random();
+        array = nums;
+        original = nums.clone();
     }
-    
-    /** Resets the array to its original configuration and return it. */
     public int[] reset() {
-        return nums;
+        array = original;
+        original = original.clone();
+        return original;
     }
-    
-    /** Returns a random shuffling of the array. */
     public int[] shuffle() {
-        if(nums == null) return null;
-        int[] a = nums.clone();
-        for(int j = 1; j < a.length; j++) {
-            int i = random.nextInt(j + 1);
-            swap(a, i, j);
+        for (int i = 0; i < array.length; i++) {
+            swapAt(i, randRange(i, array.length));
         }
-        return a;
-    }
-    
-    private void swap(int[] a, int i, int j) {
-        int temp = a[i];
-        a[i] = a[j];
-        a[j] = temp;
+        return array;
     }
 }

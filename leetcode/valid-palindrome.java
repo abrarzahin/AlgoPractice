@@ -1,4 +1,7 @@
-class Solution {
+class Solution {//Two Pointer 
+    /**Time complexity : O(n), in length nn of the string. We traverse over each character at-most once, until the two pointers meet in the middle, or when we break and return early.
+
+Space complexity : O(1). No extra space required, at all. */
     public boolean isPalindrome(String s) {
         if(s.isEmpty()){
             return true;

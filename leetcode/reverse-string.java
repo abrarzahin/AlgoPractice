@@ -1,4 +1,5 @@
 class Solution {
+    // O(N), O(1)
     public void reverseString(char[] s) {
         int left = 0, right = s.length - 1;
         while (left < right) {

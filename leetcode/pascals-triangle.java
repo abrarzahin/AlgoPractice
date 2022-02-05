@@ -1,16 +1,33 @@
 class Solution {
+	// dp solution, time:O(N^2), 
+	//space N^2 Because we need to store each number that we update in 
+	//triangle, the space requirement is the same as the time complexity.
     public List<List<Integer>> generate(int numRows) {
-        
-        List<List<Integer>> allrows = new ArrayList<List<Integer>>();
-	ArrayList<Integer> row = new ArrayList<Integer>();
-	for(int i=0;i<numRows;i++)
-	{
-		row.add(0, 1);
-		for(int j=1;j<row.size()-1;j++)
-			row.set(j, row.get(j)+row.get(j+1));
-		allrows.add(new ArrayList<Integer>(row));
-	}
-	return allrows;
-        
+        List<List<Integer>> triangle = new ArrayList<List<Integer>>();
+
+        // Base case; first row is always [1].
+        triangle.add(new ArrayList<>());
+        triangle.get(0).add(1);
+
+        for (int rowNum = 1; rowNum < numRows; rowNum++) {
+            List<Integer> row = new ArrayList<>();
+            List<Integer> prevRow = triangle.get(rowNum-1);
+
+            // The first row element is always 1.
+            row.add(1);
+
+            // Each triangle element (other than the first and last of each row)
+            // is equal to the sum of the elements above-and-to-the-left and
+            // above-and-to-the-right.
+            for (int j = 1; j < rowNum; j++) {
+                row.add(prevRow.get(j-1) + prevRow.get(j));
+            }
+
+            // The last row element is always 1.
+            row.add(1);
+
+            triangle.add(row);
+        }
+        return triangle;
     }
 }

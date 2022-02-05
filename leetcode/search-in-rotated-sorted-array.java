@@ -1,4 +1,5 @@
-class Solution {
+class Solution {// modified binary search
+    // time O(logN), space O(1)
     public int search(int[] nums, int target) {
         if(nums == null || nums.length == 0)
             return -1;

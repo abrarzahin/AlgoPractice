@@ -1,4 +1,4 @@
-class Solution {
+class Solution {//time: O(log (m+n)).
   public double findMedianSortedArrays(int[] nums1, int[] nums2) {
     int len = nums1.length + nums2.length;
     if (len % 2 == 1) {

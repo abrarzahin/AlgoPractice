@@ -1,10 +1,13 @@
 class Solution {
   public int[] findOrder(int numCourses, int[][] prerequisites) {
-
+/* BFS approach, Time Complexity: O(V + E) where V represents the number of vertices and E represents the number of edges.
+Space Complexity: O(V + E), V- vertices in Queue, E adj lists in map
+*/
     boolean isPossible = true;
     Map<Integer, List<Integer>> adjList = new HashMap<Integer, 
 List<Integer>>();
     int[] indegree = new int[numCourses];
+    // to hold the 
     int[] topologicalOrder = new int[numCourses];
 
     // Create the adjacency list representation of the graph

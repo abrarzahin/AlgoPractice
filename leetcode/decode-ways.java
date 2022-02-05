@@ -1,6 +1,6 @@
 class Solution {
     public int numDecodings(String s) {
-        
+// dp approach, time: O(N), space:O(N)
         int n = s.length();
         int[] dp= new int[n+1];
         dp[0]=1;
